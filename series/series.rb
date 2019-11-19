@@ -5,6 +5,6 @@ class Series
 
   def slices(num)
     raise ArgumentError if @digits.length < num
-    0.upto(@digits.length - num).map{|i| @digits[i, num]}
+    @digits.chars.each_cons(num).map(&:join)
   end
 end
