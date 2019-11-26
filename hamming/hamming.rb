@@ -1,9 +1,30 @@
 class Hamming
-  def self.compute(strand_a, strand_b)
-    raise ArgumentError if strand_a.size != strand_b.size
-    diff_idxs = (0..strand_a.size).to_a.select do |idx|
-      strand_a[idx] != strand_b[idx]
-    end
-    diff_idxs.size
+  def self.compute(strand1, strand2)
+    new(strand1, strand2).distance
+  end
+
+  def distance
+    nucleotides.count {|n1, n2| n1 != n2}
+  end
+
+  private
+  def initialize(strand1, strand2)
+    @strand1 = strand1
+    @strand2 = strand2
+    raise SequenceLengthError unless valid?
+  end
+
+  def valid?
+    @strand1.length == @strand2.length
+  end
+
+  def nucleotides
+    @strand1.chars.zip(@strand2.chars)
+  end
+end
+
+class SequenceLengthError < ArgumentError
+  def initialize(error_message = "Sequence lengths must be identical")
+    super
   end
 end
