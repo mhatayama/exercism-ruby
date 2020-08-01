@@ -12,15 +12,10 @@ class Matrix
   end
 
   def saddle_points
-    result = []
-    0.upto(@matrix.size - 1) do |y|
-      0.upto(@matrix[y].size - 1) do |x|
-        if @matrix[y][x] == rows[y].max && @matrix[y][x] == columns[x].min
-          result << [y, x]
-        end
-      end
+    all_points = (0...@matrix.size).to_a.product((0...@matrix[0].size).to_a)
+    all_points.select do |i, j|
+      @matrix[i][j] == rows[i].max && @matrix[i][j] == columns[j].min
     end
-    result
   end
 
   private
