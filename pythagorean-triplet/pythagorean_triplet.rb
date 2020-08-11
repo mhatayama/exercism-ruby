@@ -19,16 +19,16 @@ class Triplet
   end
 
   def self.where(min_factor: 1, max_factor: 1, sum: nil)
-    result = []
+    triplets = []
     min_factor.upto(max_factor) do |a|
       (a + 1).upto(max_factor) do |b|
         (b + 1).upto(max_factor) do |c|
           triplet = new(a, b, c)
           next if sum && sum != triplet.sum
-          result << triplet if triplet.pythagorean?
+          triplets << triplet if triplet.pythagorean?
         end
       end
     end
-    result
+    triplets
   end
 end
