@@ -1,14 +1,14 @@
 class Clock
-  attr_reader :minutes
+  MINUTES_PER_HOUR = 60
+  HOURS_PER_DAY = 24
+  MINUTES_PER_DAY = MINUTES_PER_HOUR * HOURS_PER_DAY
 
-  def initialize(time)
-    hour = time[:hour] || 0
-    minute = time[:minute] || 0
-    @minutes = hour * 60 + minute
+  def initialize(hour: 0, minute: 0)
+    @minutes = (hour * MINUTES_PER_HOUR + minute) % MINUTES_PER_DAY
   end
 
   def to_s
-    sprintf("%02d:%02d", (@minutes / 60) % 24, @minutes % 60)
+    sprintf("%02d:%02d", @minutes / MINUTES_PER_HOUR, @minutes % MINUTES_PER_HOUR)
   end
 
   def +(other_clock)
@@ -20,6 +20,9 @@ class Clock
   end
 
   def ==(other_clock)
-    to_s == other_clock.to_s
+    @minutes == other_clock.minutes
   end
+
+  protected
+  attr_reader :minutes
 end
