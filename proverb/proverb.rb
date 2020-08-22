@@ -6,8 +6,8 @@ class Proverb
 
   def to_s
     lines = []
-    (0...@items.size - 1).each do |n|
-      lines << "For want of a #{@items[n]} the #{@items[n + 1]} was lost."
+    @items.each_cons(2) do |current_word, next_word|
+      lines << "For want of a #{current_word} the #{next_word} was lost."
     end
     final = @qualifier ? "#{@qualifier} #{@items.first}" : "#{@items.first}" 
     lines << "And all for the want of a #{final}."
