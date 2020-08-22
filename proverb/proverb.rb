@@ -5,11 +5,8 @@ class Proverb
   end
 
   def to_s
-    lines = []
-    @items.each_cons(2) do |current_word, next_word|
-      lines << "For want of a #{current_word} the #{next_word} was lost."
-    end
-    lines << "And all for the want of a #{@final_word}."
-    lines.join("\n")
+    @items.each_cons(2).map do |current_word, next_word|
+      "For want of a #{current_word} the #{next_word} was lost."
+    end.append("And all for the want of a #{@final_word}.").join("\n")
   end
 end
