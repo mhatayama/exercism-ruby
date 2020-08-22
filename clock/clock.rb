@@ -1,28 +1,22 @@
 class Clock
-  attr_reader :hour, :minute
+  attr_reader :minutes
 
   def initialize(time)
-    @hour = time[:hour] || 0
-    @minute = time[:minute] || 0
+    hour = time[:hour] || 0
+    minute = time[:minute] || 0
+    @minutes = hour * 60 + minute
   end
 
   def to_s
-    minutes = @hour * 60 + @minute
-    sprintf("%02d:%02d", (minutes / 60) % 24, minutes % 60)
+    sprintf("%02d:%02d", (@minutes / 60) % 24, @minutes % 60)
   end
 
   def +(other_clock)
-    Clock.new(
-      hour: @hour + other_clock.hour,
-      minute: @minute + other_clock.minute
-    )
+    Clock.new(minute: @minutes + other_clock.minutes)
   end
 
   def -(other_clock)
-    Clock.new(
-      hour: @hour - other_clock.hour,
-      minute: @minute - other_clock.minute
-    )
+    Clock.new(minute: @minutes - other_clock.minutes)
   end
 
   def ==(other_clock)
