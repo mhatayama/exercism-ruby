@@ -1,10 +1,10 @@
 module TwelveDays
   def self.song
-    (0..11).map do |day|
-      first = "On the #{ORDINALS[day]} day of Christmas my true love gave to me:"
-      second = day.downto(0).map { |i| ITEMS[i] }
-                  .join(', ')
-                  .sub(/.*\K,/, ', and')
+    ORDINALS.each_with_index.map do |ordinal, i|
+      first = "On the #{ordinal} day of Christmas my true love gave to me:"
+      second = i.downto(0).map { |j| ITEMS[j] }
+                .join(', ')
+                .sub(/.*\K,/, ', and')
       "#{first} #{second}.\n"
     end.join("\n")
   end
