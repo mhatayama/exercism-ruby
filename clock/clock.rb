@@ -4,7 +4,9 @@ class Clock
   end
 
   def to_s
-    '%02d:%02d'.format([@minutes / MINUTES_PER_HOUR, @minutes % MINUTES_PER_HOUR])
+    hour = @minutes / MINUTES_PER_HOUR
+    minute = @minutes % MINUTES_PER_HOUR
+    format('%<hour>02d:%<minute>02d', hour: hour, minute: minute)
   end
 
   def +(other)
@@ -26,4 +28,8 @@ class Clock
   MINUTES_PER_HOUR = 60
   HOURS_PER_DAY = 24
   MINUTES_PER_DAY = MINUTES_PER_HOUR * HOURS_PER_DAY
+
+  private_constant :MINUTES_PER_HOUR,
+                   :HOURS_PER_DAY,
+                   :MINUTES_PER_DAY
 end
